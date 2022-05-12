@@ -7,8 +7,9 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 .settings(
 	scalaVersion := "2.13.8",
 	libraryDependencies ++= Seq(
-	guice,
-	"com.h2database" % "h2" % "1.4.192",
-	evolutions, 
-	jdbc,
+		guice,
+		"com.h2database" % "h2" % "1.4.192",
+		evolutions, 
+		jdbc,
+	),
 )
