@@ -11,3 +11,4 @@ bb.dio
 memo.txt
 application.conf
 .sbt
+evolutions
