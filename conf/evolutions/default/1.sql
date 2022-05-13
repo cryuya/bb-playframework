@@ -7,10 +7,12 @@ CREATE TABLE comments (
     name varchar(20) NOT NULL,
     title varchar(255) NOT NULL,
     comment varchar(255) NOT NULL,
-	created_at timestamp NOT NULL,
-	updated_at timestamp NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO comments VALUES (DEFAULT, 'firstname', 'firstplay', 'firstcomment', CURRENT_TIME, CURRENT_TIME);
 
 -- !Downs
 
