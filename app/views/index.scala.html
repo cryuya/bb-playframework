@@ -1,6 +1,15 @@
-@()
+@(comments: List[Comments])
 
-@main("Welcome to Play") {
-  <h1>Play!</h1>
-  <h2>aaaaaa</h2>
+@main("Bulletin board") {
+	<ul>
+		@for(comment <- comments) {
+			<li>
+				<p class="title">@comment.getTitle()</p>
+				<p class="name">@comment.getName()</p>
+				<p class="comment">@comment.getComment()</p>
+				<p class="updated-at">@comment.getUpdatedAt()</p>
+				<hr />
+			</li>
+		}
+	</ul>
 }
