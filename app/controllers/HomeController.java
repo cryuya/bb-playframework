@@ -14,7 +14,7 @@ public class HomeController extends Controller {
 		comment1.setCreatedAt("2020-01-01 10:10:10");
 		comment1.setUpdatedAt("2020-01-01 10:10:10");
 		comment1.save();
-		
+
 		List<Comments> comments = comment1.finder.all();
 
 		return ok(views.html.index.render(comments));
