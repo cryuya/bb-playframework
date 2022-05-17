@@ -1,17 +1,11 @@
-body {
-	color: green;
+dt {
+	float: left;
+	clear: left;
+	margin-right: 0.5em;
+	width: 120px;
 }
-ul {
-	list-style-type: none;
-}
-.title {
-	display: inline;
-}
-.name {
-	display: inline;
-}
-.comment {
-	background-color: gainsboro;
-	border-radius: 5px;
-	padding: 10px;
+
+dd {
+	float: left;
+	margin-left: 1em;
 }
