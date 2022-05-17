@@ -10,3 +10,5 @@ target
 bb.dio
 memo.txt
 .sbt
+.g8
+bb-playframework.iml
