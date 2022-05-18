@@ -1,11 +1,53 @@
-dt {
-	float: left;
-	clear: left;
-	margin-right: 0.5em;
-	width: 120px;
-}
+@import "utils/destyle";
+@import "utils/var";
+@import "utils/layout";
 
-dd {
-	float: left;
-	margin-left: 1em;
+.comment-form {
+	display: inline-block;
+	padding: 10px;
+	dl {
+		margin-top: 5px;
+		input, textarea {
+			border: 1px solid $black;
+			display: inline-block;
+			margin-top: 5px;
+			padding: 5px;
+		}
+		label {
+			font-size: 18px;
+		}
+	}
+	button {
+		background-color: $green;
+		border-radius: 10px;
+		color: $white;
+		display: inline-block;
+		margin-top: 10px;
+		padding: 10px;
+	}
+}
+.comments {
+	margin-top: 30px;
+}
+.comment {
+	background-color: $grey;
+	margin-top: 20px;
+	padding: 10px;
+	&__title {
+		font-size: 18px;
+		font-weight: bold;
+	}
+	&__text {
+		border: 1px solid $black;
+		border-radius: 5px;
+		font-size: 18px;
+		padding: 10px;
+		margin: 15px 0;
+	}
+	div {
+		display: flex;
+		p:last-child {
+			margin-left: 10px;
+		}
+	}
 }

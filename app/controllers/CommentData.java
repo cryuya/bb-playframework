@@ -1,13 +1,8 @@
 package controllers;
 
-import play.data.validation.Constraints;
-
 public class CommentData {
-	@Constraints.Required 
 	private String name;
-	@Constraints.Required 
 	private String title;
-	@Constraints.Required 
 	private String comment;
 
 	public void setName(String name) {
