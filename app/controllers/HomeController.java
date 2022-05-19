@@ -6,8 +6,6 @@ import play.mvc.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.MessagesApi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import io.ebean.Finder;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -17,15 +15,16 @@ import javax.inject.Inject;
 import static play.libs.Scala.asScala;
 
 public class HomeController extends Controller {
-	private final Finder<Integer, Comments> finder = new Finder<>(Comments.class);
-	private final Form<CommentData> form;
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
+	private Form<CommentData> form;
+	private Form<DeleteCommentData> deleteForm;
 	private MessagesApi messagesApi;
 	private List<Comments> comments;
 
 	@Inject
 	public HomeController(FormFactory formFactory, MessagesApi messagesApi) {
 		this.form = formFactory.form(CommentData.class);
+		this.deleteForm = formFactory.form(DeleteCommentData.class);
 		this.messagesApi = messagesApi;
 		this.comments = com.google.common.collect.Lists.newArrayList(
 			finder.all()
@@ -33,25 +32,31 @@ public class HomeController extends Controller {
 	}
 
 	public Result listComments(Http.Request request) {
-		return ok(views.html.index.render(asScala(comments), form, request, messagesApi.preferred(request)));
+		return ok(views.html.index.render(asScala(comments), form, deleteForm, request, messagesApi.preferred(request)));
 	}
 
 	public Result createComment(Http.Request request) {
-		final Form<CommentData> boundForm = form.bindFromRequest(request);
+		Form<CommentData> boundForm = form.bindFromRequest(request);
 
-		if (boundForm.hasErrors()) {
-			logger.error("errors = {}", boundForm.errors());
-			return badRequest(views.html.index.render(asScala(comments), boundForm, request, messagesApi.preferred(request)));
-		} else {
-			CommentData data = boundForm.get();
-			String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			Comments c = new Comments(data.getName(), data.getTitle(), data.getComment(), nowDate, nowDate);
-			c.save();
-			this.comments = com.google.common.collect.Lists.newArrayList(
-				finder.all()
-			);
-			return redirect(routes.HomeController.listComments())
-				.flashing("info", "Comment added!");
-		}
+		CommentData data = boundForm.get();
+		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		Comments c = new Comments(data.getName(), data.getTitle(), data.getComment(), nowDate, nowDate);
+		c.save();
+		this.comments = com.google.common.collect.Lists.newArrayList(
+			finder.all()
+		);
+		return redirect(routes.HomeController.listComments()).flashing("info", "Comment added!");
+	}
+
+	public Result deleteComment(Http.Request request) {
+		Form<DeleteCommentData> boundForm = deleteForm.bindFromRequest(request);
+
+		DeleteCommentData data = boundForm.get();
+		finder.deleteById(data.getId());
+		System.out.println(request);
+		this.comments = com.google.common.collect.Lists.newArrayList(
+			finder.all()
+		);
+		return redirect(routes.HomeController.listComments()).flashing("info", "delete!");
 	}
 }

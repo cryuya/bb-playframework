@@ -1,4 +1,5 @@
 GET / controllers.HomeController.listComments(request: Request)
+POST /deleteComment controllers.HomeController.deleteComment(request: Request)
 POST /comments controllers.HomeController.createComment(request: Request)
 
 GET /assets/*file controllers.Assets.versioned(path="/public", file: Asset)
