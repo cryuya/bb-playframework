@@ -3,6 +3,7 @@
 @(
 	comments: Seq[Comments], 
 	commentForm: Form[CommentData],
+	deleteCommentForm: Form[DeleteCommentData],
 )(implicit 
 	request: Request, 
 	messages: play.i18n.Messages,
@@ -22,24 +23,22 @@
 		}
 	</div>
 
-	@if(commentForm.hasGlobalErrors) {
-		@commentForm.globalErrors.asScala.map { error: play.data.validation.ValidationError =>
-			<div>
-				@error.key: @error.message
-			</div>
-		}
-	}
-
-	@request.flash.asScala().data.map { case (name, value) =>
-		<div class="@name">@value</div>
-	}
-
 	<div class="comments">
+		@request.flash.asScala().data.map { case (name, value) =>
+			<div class="@name">@value</div>
+		}
+		
 		@for(c <- comments) {
 			<div class="comment">
 				<p class="comment__title">title: @c.title</p>
-				<p class="comment__text">@c.comment</p>
-				<div>
+				<div class="comment__text-delete">
+					<p class="comment__text">@c.comment</p>
+					@helper.form(routes.HomeController.deleteComment) {
+						@helper.CSRF.formField
+						<button type="submit" name="id" value="@c.id">delete</button>
+					}
+				</div>
+				<div class="comment__name-updatedAt">
 					<p>by @c.name,</p>
 					<p>@c.updatedAt </p>
 				</div>
