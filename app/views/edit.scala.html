@@ -1,0 +1,25 @@
+@import play.mvc.Http.Request
+
+@(
+	comment: Comments,
+	editCommentForm: Form[CommentEditData]
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages,
+)
+
+@main("Edit Comment") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/edit.css")">
+} {
+	<h1>Edit</h1>
+
+	<div class="edit-comment">
+		@helper.form(routes.HomeController.editComment) {
+			@helper.CSRF.formField
+
+			<p>@comment.comment</p>
+			@helper.textarea(editCommentForm("comment"), Symbol("label")-> "", Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
+			<button type="submit" name="id" value="@comment.id">change</button>
+		}
+	</div>
+}
