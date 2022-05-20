@@ -17,14 +17,17 @@ import static play.libs.Scala.asScala;
 public class HomeController extends Controller {
 	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
 	private Form<CommentData> form;
-	private Form<DeleteCommentData> deleteForm;
+	private Form<CommentDeleteData> deleteForm;
+	private Form<CommentEditData> editForm;
 	private MessagesApi messagesApi;
 	private List<Comments> comments;
+	private Comments comment;
 
 	@Inject
 	public HomeController(FormFactory formFactory, MessagesApi messagesApi) {
 		this.form = formFactory.form(CommentData.class);
-		this.deleteForm = formFactory.form(DeleteCommentData.class);
+		this.deleteForm = formFactory.form(CommentDeleteData.class);
+		this.editForm = formFactory.form(CommentEditData.class);
 		this.messagesApi = messagesApi;
 		this.comments = com.google.common.collect.Lists.newArrayList(
 			finder.all()
@@ -32,7 +35,12 @@ public class HomeController extends Controller {
 	}
 
 	public Result listComments(Http.Request request) {
-		return ok(views.html.index.render(asScala(comments), form, deleteForm, request, messagesApi.preferred(request)));
+		return ok(views.html.index.render(asScala(this.comments), this.form, this.deleteForm, request, this.messagesApi.preferred(request)));
+	}
+
+	public Result editCommentPage(int id, Http.Request request) {
+		this.comment = finder.byId(id);
+		return ok(views.html.edit.render(this.comment, this.editForm, request, this.messagesApi.preferred(request)));
 	}
 
 	public Result createComment(Http.Request request) {
@@ -49,14 +57,30 @@ public class HomeController extends Controller {
 	}
 
 	public Result deleteComment(Http.Request request) {
-		Form<DeleteCommentData> boundForm = deleteForm.bindFromRequest(request);
+		Form<CommentDeleteData> boundForm = deleteForm.bindFromRequest(request);
 
-		DeleteCommentData data = boundForm.get();
+		CommentDeleteData data = boundForm.get();
 		finder.deleteById(data.getId());
-		System.out.println(request);
 		this.comments = com.google.common.collect.Lists.newArrayList(
 			finder.all()
 		);
 		return redirect(routes.HomeController.listComments()).flashing("info", "delete!");
+	}
+
+	public Result editComment(Http.Request request) {
+		Form<CommentEditData> boundForm = editForm.bindFromRequest(request);
+
+		CommentEditData data = boundForm.get();
+		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		finder.update()
+			.set("comment", data.getComment())
+			.set("updatedAt", nowDate)
+			.where()
+				.eq("id", data.getId())
+				.update();
+		this.comments = com.google.common.collect.Lists.newArrayList(
+			finder.all()
+		);
+		return redirect(routes.HomeController.listComments()).flashing("info", "edited!");
 	}
 }
