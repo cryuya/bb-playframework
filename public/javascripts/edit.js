@@ -1,0 +1,1 @@
+document.getElementById("comment").innerText = document.getElementById("original_comment").innerText;
