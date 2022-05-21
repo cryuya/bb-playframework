@@ -3,5 +3,23 @@
 
 body {
 	font-size: 16px;
+}
+main {
 	padding: 20px;
+}
+.header {
+	border-bottom: 1px solid $black;
+	display: flex;
+	padding: 20px;
+	&__top {
+		color: $green;
+		font-size: 24px;
+		font-weight: bold;
+		margin-right: auto;
+	}
+	&__search {
+		color: $green;
+		font-size: 20px;
+		font-weight: bold;
+	}
 }

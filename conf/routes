@@ -1,7 +1,10 @@
-GET / controllers.HomeController.listComments(request: Request)
+GET / controllers.HomeController.topPage(request: Request)
 POST /comments controllers.HomeController.createComment(request: Request)
 POST /deleteComment controllers.HomeController.deleteComment(request: Request)
-GET /editComment/:id controllers.HomeController.editCommentPage(id: Int, request: Request)
-POST /editComment controllers.HomeController.editComment(request: Request)
+
+GET /editComment/:id controllers.EditController.editCommentPage(id: Int, request: Request)
+POST /editComment controllers.EditController.editComment(request: Request)
+
+GET /searchComments controllers.SearchController.searchCommentsPage(request: Request)
 
 GET /assets/*file controllers.Assets.versioned(path="/public", file: Asset)
