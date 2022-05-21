@@ -3,7 +3,7 @@
 @(
 	comments: Seq[Comments],
 	commentForm: Form[CommentData],
-	deleteCommentForm: Form[CommentDeleteData],
+	deleteCommentForm: Form[CommentData],
 )(implicit
 	request: Request,
 	messages: play.i18n.Messages
@@ -12,43 +12,53 @@
 @main(title = "Bulletin board") {
 	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
 } {
-	<h1>Bullenin Board</h1>
+	<header class="header">
+		<p class="header__top">
+			<a href="/">Top</a>
+		</p>
+		<p class="header__search">
+			<a href="/searchComments">search🔎</a>
+		</p>
+	</header>
+	<main>
+		<h1>Bullenin Board</h1>
 
-	<div class="comment-form">
-		@helper.form(routes.HomeController.createComment) {
-			@helper.CSRF.formField
+		<div class="comment-form">
+			@helper.form(routes.HomeController.createComment) {
+				@helper.CSRF.formField
 
-			@helper.inputText(commentForm("name"), Symbol("size")-> 20, Symbol("maxlength")-> 20, Symbol("required")-> "required")
-			@helper.inputText(commentForm("title"), Symbol("size")-> 30, Symbol("maxlength")-> 20, Symbol("required")-> "required")
-			@helper.textarea(commentForm("comment"),  Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
+				@helper.inputText(commentForm("name"), Symbol("size")-> 20, Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@helper.inputText(commentForm("title"), Symbol("size")-> 30, Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@helper.textarea(commentForm("comment"),  Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
 
-			<button type="submit">send comment</button>
-		}
-	</div>
+				<button type="submit">send comment</button>
+			}
+		</div>
 
-	<div class="comments">
-		@request.flash.asScala().data.map { case (name, value) =>
-			<div class="@name">@value</div>
-		}
-		
-		@for(c <- comments) {
-			<div class="comment">
-				<p class="comment__title">title: @c.title</p>
-				<div class="comment__text-delete">
-					<p class="comment__text">@c.comment</p>
-					<button type="submit" class="comment__edit">
-						<a href="/editComment/@c.id">edit</a>
-					</button>
-					@helper.form(routes.HomeController.deleteComment) {
-						@helper.CSRF.formField
-						<button type="submit" name="id" value="@c.id">delete</button>
-					}
+		<div class="comments">
+			@request.flash.asScala().data.map { case (name, value) =>
+				<div class="@name">@value</div>
+			}
+			
+			@for(c <- comments) {
+				<div class="comment">
+					<p class="comment__title">title: @c.title</p>
+					<div class="comment__text-delete">
+						<p class="comment__text">@c.comment</p>
+						<a href="/editComment/@c.id">
+							<button type="submit" class="comment__edit">edit</button>
+						</a>
+						@helper.form(routes.HomeController.deleteComment) {
+							@helper.CSRF.formField
+							<button type="submit" name="id" value="@c.id">delete</button>
+						}
+					</div>
+					<div class="comment__name-updatedAt">
+						<p>by @c.name,</p>
+						<p>@c.updatedAt </p>
+					</div>
 				</div>
-				<div class="comment__name-updatedAt">
-					<p>by @c.name,</p>
-					<p>@c.updatedAt </p>
-				</div>
-			</div>
-		}
-	</div>
+			}
+		</div>
+	</main>
 }

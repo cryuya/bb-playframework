@@ -2,7 +2,7 @@
 
 @(
 	comment: Comments,
-	editCommentForm: Form[CommentEditData]
+	editCommentForm: Form[CommentData]
 )(implicit
 	request: Request,
 	messages: play.i18n.Messages,
@@ -11,15 +11,27 @@
 @main("Edit Comment") {
 	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/edit.css")">
 } {
-	<h1>Edit</h1>
+	<header class="header">
+		<p class="header__top">
+			<a href="/">Top</a>
+		</p>
+		<p class="header__search">
+			<a href="/search">search🔎</a>
+		</p>
+	</header>
 
-	<div class="edit-comment">
-		@helper.form(routes.HomeController.editComment) {
-			@helper.CSRF.formField
+	<main>
+		<h1>Edit</h1>
 
-			<p>@comment.comment</p>
-			@helper.textarea(editCommentForm("comment"), Symbol("label")-> "", Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
-			<button type="submit" name="id" value="@comment.id">change</button>
-		}
-	</div>
+		<div class="edit-comment">
+			@helper.form(routes.EditController.editComment) {
+				@helper.CSRF.formField
+
+				<p id="original_comment">@comment.comment</p>
+				@helper.textarea(editCommentForm("comment"), Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
+				<button type="submit" name="id" value="@comment.id">change</button>
+			}
+		</div>
+	</main>
+	<script src="@routes.Assets.versioned("javascripts/edit.js")"></script>
 }

@@ -1,0 +1,44 @@
+@import "utils/layout";
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+.search-word {
+	border-bottom: 1px solid $black;
+	display: block;
+	padding: 10px;
+}
+.search-btn {
+	background-color: $green;
+	border-radius: 10px;
+	color: $white;
+	display: block;
+	margin-top: 20px;
+	padding: 10px;
+}
+.searched-comments {
+	margin-top: 30px;
+}
+.searched-comment {
+	background-color: $grey;
+	margin-top: 20px;
+	padding: 10px;
+	&__title {
+		font-size: 18px;
+		font-weight: bold;
+	}
+	&__text {
+		border: 1px solid $black;
+		border-radius: 5px;
+		font-size: 18px;
+		padding: 10px;
+		margin: 15px 0;
+	}
+	&__name-updatedAt {
+		display: flex;
+		p:last-child {
+			margin-left: 10px;
+		}
+	}
+}

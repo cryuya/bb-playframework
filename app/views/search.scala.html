@@ -1,0 +1,48 @@
+@import play.mvc.Http.Request
+
+@(
+	searchedComments: Seq[Comments],
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages
+)
+
+@main("Search Comments") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+} {
+	<header class="header">
+		<p class="header__top">
+			<a href="/">Top</a>
+		</p>
+		<p class="header__search">
+			<a href="/searchedComments">search🔎</a>
+		</p>
+	</header>
+
+	<main>
+		<h1>Search</h1>
+
+		<div>
+			<input type="text" class="search-word" id="search_word"/>
+			<a id="search_btn">
+				<button class="search-btn">search</button>
+			</a>
+		</div>
+
+		<div class="searched-comments">
+			@for(c <- searchedComments) {
+				<div class="searched-comment">
+					<p class="searched-comment__title">title: @c.title</p>
+					<div class="searched-comment__text-delete">
+						<p class="searched-comment__text">@c.comment</p>
+					</div>
+					<div class="searched-comment__name-updatedAt">
+						<p>by @c.name,</p>
+						<p>@c.updatedAt </p>
+					</div>
+				</div>
+			}
+		</div>
+	</main>
+	<script src="@routes.Assets.versioned("javascripts/search.js")"></script>
+}
