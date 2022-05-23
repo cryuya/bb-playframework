@@ -32,10 +32,8 @@
 		<div class="searched-comments">
 			@for(c <- searchedComments) {
 				<div class="searched-comment">
-					<p class="searched-comment__title">title: @c.title</p>
-					<div class="searched-comment__text-delete">
-						<p class="searched-comment__text">@c.comment</p>
-					</div>
+					<p class="searched-comment__title">title: <span name="searched_title">@c.title</span></p>
+					<p class="searched-comment__text"><span name="searched_comment">@c.comment</span></p>
 					<div class="searched-comment__name-updatedAt">
 						<p>by @c.name,</p>
 						<p>@c.updatedAt </p>
