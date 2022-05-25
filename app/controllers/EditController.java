@@ -7,6 +7,7 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.MessagesApi;
 import io.ebean.Finder;
+import com.google.common.collect.Lists;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +19,8 @@ public class EditController extends Controller {
 	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
 	private Form<CommentData> form;
 	private MessagesApi messagesApi;
-	private List<Comments> comments = com.google.common.collect.Lists.newArrayList();
-	private List<Comments> searchedComments = com.google.common.collect.Lists.newArrayList();
+	private List<Comments> comments = Lists.newArrayList();
+	private List<Comments> searchedComments = Lists.newArrayList();
 	private Comments comment;
 
 	@Inject
