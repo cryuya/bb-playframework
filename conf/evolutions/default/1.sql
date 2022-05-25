@@ -22,7 +22,7 @@ CREATE TABLE users (
 INSERT INTO comments VALUES (DEFAULT, 'firstname', 'firstplay', 'firstcomment', CURRENT_TIME, CURRENT_TIME);
 INSERT INTO users VALUES (DEFAULT, 'name', 'password');
 
-!Downs
+-- !Downs
 
 DROP TABLE comments;
 DROP TABLE users;
