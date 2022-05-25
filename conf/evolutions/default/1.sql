@@ -12,8 +12,17 @@ CREATE TABLE comments (
 	PRIMARY KEY (id)
 );
 
-INSERT INTO comments VALUES (DEFAULT, 'firstname', 'firstplay', 'firstcomment', CURRENT_TIME, CURRENT_TIME);
+CREATE TABLE users (
+	id int NOT NULL AUTO_INCREMENT,
+	name varchar(20) NOT NULL,
+	password varchar(30) NOT NULL,
+	PRIMARY KEY (id)
+);
 
--- !Downs
+INSERT INTO comments VALUES (DEFAULT, 'firstname', 'firstplay', 'firstcomment', CURRENT_TIME, CURRENT_TIME);
+INSERT INTO users VALUES (DEFAULT, 'name', 'password');
+
+!Downs
 
 DROP TABLE comments;
+DROP TABLE users;

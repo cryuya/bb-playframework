@@ -1,0 +1,30 @@
+@import play.mvc.Http.Request
+
+@(
+	users: Seq[Users],
+	registUserForm: Form[UserData]
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages,
+)
+
+@main("Regist User") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/registUser.css")">
+} {
+	<main>
+		<h1>Regist user</h1>
+		@for(u <- users) {
+			<p>@u.name</p>
+		}
+
+		<div class="edit-comment">
+			@helper.form(routes.RegistUserController.registUser) {
+				@helper.CSRF.formField
+				@helper.inputText(registUserForm("name"))
+				@helper.inputPassword(registUserForm("password"))
+				<button type="submit">change</button>
+			}
+		</div>
+	</main>
+	<script src="@routes.Assets.versioned("javascripts/edit.js")"></script>
+}
