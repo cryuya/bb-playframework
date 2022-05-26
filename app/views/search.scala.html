@@ -15,7 +15,7 @@
 			<a href="/">Top</a>
 		</p>
 		<p class="header__search">
-			<a href="/searchedComments">search🔎</a>
+			<a href="/searchComments">search🔎</a>
 		</p>
 	</header>
 
@@ -23,13 +23,20 @@
 		<h1>Search</h1>
 
 		<div>
-			<input type="text" class="search-word" id="search_word"/>
-			<a id="search_btn">
-				<button class="search-btn">search</button>
-			</a>
+			@helper.form(routes.SearchController.searchComments) {
+			@helper.CSRF.formField
+			<input type="text" class="search-word" name="word"/>
+			<button type="submit" class="search-btn">search</button>
+			}
 		</div>
 
 		<div class="searched-comments">
+			@if(searchedComments.isEmpty()) {
+			<p class="card-text">No Comments</p>
+			} else {
+			<p class="card-text">@searchedComments.size() @if(searchedComments.size() == 1) { Comment} else { Comments} Found.</p>
+			}
+
 			@for(c <- searchedComments) {
 				<div class="searched-comment">
 					<p class="searched-comment__title">title: <span name="searched_title">@c.title</span></p>

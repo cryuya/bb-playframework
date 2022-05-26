@@ -5,7 +5,8 @@ POST /deleteComment controllers.HomeController.deleteComment(request: Request)
 GET /editComment/:id controllers.EditController.editCommentPage(id: Int, request: Request)
 POST /editComment controllers.EditController.editComment(request: Request)
 
-GET /searchComments controllers.SearchController.searchCommentsPage(request: Request)
+GET /searchComments controllers.SearchController.searchPage(request: Request)
+POST /searchComments controllers.SearchController.searchComments(request: Request)
 
 GET /registUser controllers.RegistUserController.registUserPage(request: Request)
 POST /registUser controllers.RegistUserController.registUser(request: Request)
