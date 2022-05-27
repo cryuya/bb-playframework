@@ -38,6 +38,6 @@ public class RegistUserController extends Controller {
 		Users u = new Users(data.getName(), data.getPassword());
 		u.save();
 
-		return redirect(routes.HomeController.topPage()).flashing("info", "Regited user!");
+		return redirect("/").flashing("info", "Regited user!");
 	}
 } 

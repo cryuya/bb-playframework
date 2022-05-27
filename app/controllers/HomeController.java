@@ -41,7 +41,7 @@ public class HomeController extends Controller {
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		Comments c = new Comments(data.getName(), data.getTitle(), data.getComment(), nowDate, nowDate);
 		c.save();
-		return redirect(routes.HomeController.topPage()).flashing("info", "Comment added!");
+		return redirect("/").flashing("info", "Comment added!");
 	}
 
 	public Result deleteComment(Http.Request request) {
@@ -49,6 +49,6 @@ public class HomeController extends Controller {
 		CommentData data = boundForm.get();
 
 		finder.deleteById(data.getId());
-		return redirect(routes.HomeController.topPage()).flashing("info", "delete!");
+		return redirect("/").flashing("info", "delete!");
 	}
 } 
