@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import static play.libs.Scala.asScala;
 
+@Security.Authenticated(Secured.class)
 public class SearchController extends Controller {
 	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
 	private MessagesApi messagesApi;
@@ -23,13 +24,15 @@ public class SearchController extends Controller {
 
 	public Result searchCommentsPage(Http.Request request) {
 		String word = request.getQueryString("word");
-		this.searchedComments = 
-			finder.query()
-			.where()
-				.or()
-					.like("title", "%" + word + "%")
-					.like("comment", "%" + word + "%")
-			.findList();
+		if(word != "") {
+			this.searchedComments = 
+				finder.query()
+				.where()
+					.or()
+						.like("title", "%" + word + "%")
+						.like("comment", "%" + word + "%")
+				.findList();
+		}
 
 		return ok(views.html.search.render(asScala(this.searchedComments), request, this.messagesApi.preferred(request)));
 	}
