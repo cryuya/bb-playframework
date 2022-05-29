@@ -12,6 +12,8 @@ public class Comments extends Model {
 	@Id
 	public Integer id;
 	@Constraints.Required 
+	public Integer user_id;
+	@Constraints.Required 
 	public String name;
 	@Constraints.Required 
 	public String title;
@@ -21,7 +23,8 @@ public class Comments extends Model {
 	public String createdAt;
 	public String updatedAt;
 
-	public Comments(String name, String title, String comment, String createdAt, String updatedAt) {
+	public Comments(Integer user_id, String name, String title, String comment, String createdAt, String updatedAt) {
+		this.user_id = user_id;
 		this.name = name;
 		this.title = title;
 		this.comment = comment;
