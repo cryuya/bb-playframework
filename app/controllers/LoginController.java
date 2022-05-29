@@ -42,18 +42,24 @@ public class LoginController extends Controller {
 						.and()
 							.eq("name", data.getName())
 							.eq("password", data.getPassword())
-					.findOne();
+					.findOne()
+				;
 
 			if (searchedUser != null) {
 				return 
-					redirect(routes.HomeController.topPage())
+					redirect("/")
 						.addingToSession(request, "id", String.valueOf(data.getId()))
-						.flashing("success", "ログイン！");
+						.addingToSession(request, "name", data.getName())
+						.flashing("", "logged in");
 			} else {
 				return 
-					redirect(routes.LoginController.loginPage())
-						.flashing("failure", "間違っています");
+					redirect("/login")
+						.flashing("", "failure");
 			}
 		}
+	}
+
+	public Result logout() {
+		return redirect("/login").withNewSession();
 	}
 } 

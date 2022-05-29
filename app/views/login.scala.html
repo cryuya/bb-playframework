@@ -11,9 +11,13 @@
 	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
 } {
 	<main>
-		<h1>Login</h1>
+		<h1>Log in</h1>
 
-		<div class="">
+		@request.flash.asScala().data.map { case (name, value) =>
+			<p>@value</p>
+		}
+
+		<div class="login-form">
 			@helper.form(routes.LoginController.login) {
 				@helper.CSRF.formField
 				@helper.inputText(loginForm("name"))
@@ -21,6 +25,10 @@
 				<button type="submit">login</button>
 			}
 		</div>
+
+		<br>
+		<a href="/registUser">
+			<p>regist user page</p>
+		</a>
 	</main>
-	<!-- <script src="@routes.Assets.versioned("javascripts/edit.js")"></script> -->
 }
