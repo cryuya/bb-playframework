@@ -46,6 +46,6 @@ public class EditController extends Controller {
 				.eq("id", data.getId())
 				.update();
 
-		return redirect("/").flashing("info", "edited!");
+		return redirect("/").flashing("", "edited!");
 	}
 } 

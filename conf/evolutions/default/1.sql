@@ -23,7 +23,7 @@ CREATE TABLE comments (
 	created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY(user_id),
+	FOREIGN KEY(user_id)
     REFERENCES users(id)
 );
 
@@ -32,7 +32,7 @@ INSERT INTO comments VALUES
 	(DEFAULT, 2, 'user2', 'かめかめかめ', 'いるか　かもめ　いるか', CURRENT_TIME, CURRENT_TIME),
 	(DEFAULT, 2, 'user2', 'たぬきぺんぎん', 'ねこいぬいぬいぬ', CURRENT_TIME, CURRENT_TIME),
 	(DEFAULT, 2, 'user2', 'ねこぺんぎんねこ', 'ねこねこねこねこ', CURRENT_TIME, CURRENT_TIME),
-	(DEFAULT, 3, 'user3', 'かめいぬ', 'いぬかめかかめめ', CURRENT_TIME, CURRENT_TIME)
+	(DEFAULT, 3, 'user3', 'かめいぬ', 'いぬかめかかめめめ', CURRENT_TIME, CURRENT_TIME)
 ;
 
 -- !Downs
