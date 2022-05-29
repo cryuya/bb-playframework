@@ -1,6 +1,7 @@
 @import play.mvc.Http.Request
 
 @(
+	name: String,
 	comments: Seq[Comments],
 	commentForm: Form[CommentData],
 	deleteCommentForm: Form[CommentData],
@@ -16,18 +17,21 @@
 		<p class="header__top">
 			<a href="/">Top</a>
 		</p>
+		<p class="header__logout">
+			<a href="/logout">log out</a>
+		</p>
 		<p class="header__search">
 			<a href="/searchComments">search🔎</a>
 		</p>
 	</header>
 	<main>
+		@name
 		<h1>Bullenin Board</h1>
 
 		<div class="comment-form">
 			@helper.form(routes.HomeController.createComment) {
 				@helper.CSRF.formField
 
-				@helper.inputText(commentForm("name"), Symbol("size")-> 20, Symbol("maxlength")-> 20, Symbol("required")-> "required")
 				@helper.inputText(commentForm("title"), Symbol("size")-> 30, Symbol("maxlength")-> 20, Symbol("required")-> "required")
 				@helper.textarea(commentForm("comment"),  Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
 
@@ -37,7 +41,7 @@
 
 		<div class="comments">
 			@request.flash.asScala().data.map { case (name, value) =>
-				<div class="@name">@value</div>
+				<p>@value</p>
 			}
 			
 			@for(c <- comments) {
