@@ -17,9 +17,16 @@ main {
 		font-weight: bold;
 		margin-right: auto;
 	}
-	&__search {
+	&__logout {
+		color: $red;
+		font-size: 20px;
+		font-weight: bold;
+	
+	}
+	&__user, &__search {
 		color: $green;
 		font-size: 20px;
 		font-weight: bold;
+		margin-right: 30px;
 	}
 }

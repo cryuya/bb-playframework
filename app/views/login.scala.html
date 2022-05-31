@@ -1,0 +1,34 @@
+@import play.mvc.Http.Request
+
+@(
+	loginForm: Form[UserData]
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages,
+)
+
+@main("Log in") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
+} {
+	<main>
+		<h1>Log in</h1>
+
+		@request.flash.asScala().data.map { case (name, value) =>
+			<p>@value</p>
+		}
+
+		<div class="login-form">
+			@helper.form(routes.LoginController.login) {
+				@helper.CSRF.formField
+				@helper.inputText(loginForm("name"))
+				@helper.inputPassword(loginForm("password"))
+				<button type="submit">login</button>
+			}
+		</div>
+
+		<br>
+		<a href="/registUser">
+			<p>regist user page</p>
+		</a>
+	</main>
+}

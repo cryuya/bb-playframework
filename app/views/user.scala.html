@@ -1,0 +1,63 @@
+@import play.mvc.Http.Request
+
+@(
+	comments: Seq[Comments],
+	userInfoForm: Form[UserData]
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages
+)
+
+@main("User page") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/user.css")">
+} {
+	<header class="header">
+		<p class="header__top">
+			<a href="/">Top</a>
+		</p>
+		<p class="header__logout">
+			<a href="/logout">log out</a>
+		</p>
+	</header>
+
+	<main>
+		<h1>User page</h1>
+
+		<div class="user-info-form">
+			@helper.form(routes.UserController.updateUserInfo) {
+				@helper.CSRF.formField
+
+				@helper.inputText(userInfoForm("name"))
+				@helper.inputPassword(userInfoForm("password"))
+				<button type="submit">update</button>
+			}
+		</div>
+
+		<div class="comments">
+			@request.flash.asScala().data.map { case (name, value) =>
+				<p>@value</p>
+			}
+
+			@for(comment <- comments) {
+				<div class="comment">
+					<p class="comment__title">title: @comment.title</p>
+					<div class="comment__text-delete">
+						<p class="comment__text">@comment.comment</p>
+						<a href="/editComment/@comment.id">
+							<button type="submit" class="comment__edit">edit</button>
+						</a>
+						@helper.form(routes.UserController.deleteComment) {
+							@helper.CSRF.formField
+							<button type="submit" name="id" value="@comment.id">delete</button>
+						}
+					</div>
+					<div class="comment__name-updatedAt">
+						<p>by @comment.name,</p>
+						<p>@comment.updatedAt</p>
+						<p>@comment.userId</p>
+					</div>
+				</div>
+			}
+		</div>
+	</main>
+}

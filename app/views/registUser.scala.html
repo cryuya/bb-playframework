@@ -8,23 +8,28 @@
 	messages: play.i18n.Messages,
 )
 
-@main("Regist User") {
+@main("Regist user") {
 	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/registUser.css")">
 } {
 	<main>
 		<h1>Regist user</h1>
-		@for(u <- users) {
-			<p>@u.name</p>
+
+		@request.flash.asScala().data.map { case (name, value) =>
+			<p>@value</p>
 		}
 
-		<div class="edit-comment">
+		<div class="regist-form">
 			@helper.form(routes.RegistUserController.registUser) {
 				@helper.CSRF.formField
 				@helper.inputText(registUserForm("name"))
 				@helper.inputPassword(registUserForm("password"))
-				<button type="submit">change</button>
+				<button type="submit">submit</button>
 			}
 		</div>
+
+		<br>
+		<a href="/login">
+			<p>log in page</p>
+		</a>
 	</main>
-	<script src="@routes.Assets.versioned("javascripts/edit.js")"></script>
 }
