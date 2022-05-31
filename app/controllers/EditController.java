@@ -19,8 +19,6 @@ public class EditController extends Controller {
 	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
 	private Form<CommentData> form;
 	private MessagesApi messagesApi;
-	private List<Comments> comments = Lists.newArrayList();
-	private List<Comments> searchedComments = Lists.newArrayList();
 	private Comments comment;
 
 	@Inject
@@ -36,8 +34,8 @@ public class EditController extends Controller {
 
 	public Result editComment(Http.Request request) {
 		Form<CommentData> boundForm = form.bindFromRequest(request);
-
 		CommentData data = boundForm.get();
+
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		finder.update()
 			.set("comment", data.getComment())
