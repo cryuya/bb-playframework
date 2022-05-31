@@ -2,6 +2,7 @@ package controllers;
 
 public class CommentData {
 	private int id;
+	private int userId;
 	private String name;
 	private String title;
 	private String comment;
@@ -11,6 +12,13 @@ public class CommentData {
 	}
 	public int getId() {
 		return this.id;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getUserId() {
+		return this.userId;
 	}
 
 	public void setName(String name) {
