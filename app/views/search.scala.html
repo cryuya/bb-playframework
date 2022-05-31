@@ -36,13 +36,6 @@
 					<p class="searched-comment__title">title: <span name="searched_title">@searchedComment.title</span></p>
 					<div class="searched-comment__text-delete">
 						<p class="searched-comment__text"><span name="searched_comment">@searchedComment.comment</span></p>
-						<a href="/editComment/@searchedComment.id">
-							<button type="submit" class="searched-comment__edit">edit</button>
-						</a>
-						@form(routes.HomeController.deleteComment) {
-							@CSRF.formField
-							<button type="submit" name="id" value="@searchedComment.id">delete</button>
-						}
 					</div>
 					<div class="searched-comment__name-updatedAt">
 						<p>by @searchedComment.name,</p>
