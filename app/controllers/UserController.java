@@ -32,7 +32,7 @@ public class UserController extends Controller {
 		this.comments = 
 			commentsFinder.query()
 				.where()
-					.eq("id", Integer.parseInt(request.session().get("id").orElse("0")))
+					.eq("user_id", Integer.parseInt(request.session().get("id").orElse("0")))
 				.findList()
 			;
 		;
