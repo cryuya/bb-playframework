@@ -47,7 +47,7 @@
 			@request.flash.asScala().data.map { case (name, value) =>
 				<p>@value</p>
 			}
-			
+
 			@for(c <- comments) {
 				<div class="comment">
 					<p class="comment__title">title: @c.title</p>
