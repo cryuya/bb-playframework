@@ -33,8 +33,31 @@
 			}
 		</div>
 
-		@for(c <- comments) {
-			<p>@c.comment</p>
-		}
+		<div class="comments">
+			@request.flash.asScala().data.map { case (name, value) =>
+				<p>@value</p>
+			}
+
+			@for(comment <- comments) {
+				<div class="comment">
+					<p class="comment__title">title: @comment.title</p>
+					<div class="comment__text-delete">
+						<p class="comment__text">@comment.comment</p>
+						<a href="/editComment/@comment.id">
+							<button type="submit" class="comment__edit">edit</button>
+						</a>
+						@helper.form(routes.UserController.deleteComment) {
+							@helper.CSRF.formField
+							<button type="submit" name="id" value="@comment.id">delete</button>
+						}
+					</div>
+					<div class="comment__name-updatedAt">
+						<p>by @comment.name,</p>
+						<p>@comment.updatedAt</p>
+						<p>@comment.userId</p>
+					</div>
+				</div>
+			}
+		</div>
 	</main>
 }
