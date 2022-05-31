@@ -15,33 +15,34 @@ import javax.inject.Inject;
 
 import static play.libs.Scala.asScala;
 
+@Security.Authenticated(Secured.class)
 public class EditController extends Controller {
-	private Finder<Integer, Comments> finder = new Finder<>(Comments.class);
-	private Form<CommentData> form;
+	private Finder<Integer, Comments> commentsFinder = new Finder<>(Comments.class);
+	private Form<CommentData> commentsForm;
 	private MessagesApi messagesApi;
 	private Comments comment;
 
 	@Inject
 	public EditController(FormFactory formFactory, MessagesApi messagesApi) {
-		this.form = formFactory.form(CommentData.class);
+		this.commentsForm = formFactory.form(CommentData.class);
 		this.messagesApi = messagesApi;
 	}
 
 	public Result editCommentPage(int id, Http.Request request) {
-		this.comment = finder.byId(id);
-		return ok(views.html.edit.render(this.comment, this.form, request, this.messagesApi.preferred(request)));
+		this.comment = commentsFinder.byId(id);
+		return ok(views.html.edit.render(this.comment, this.commentsForm, request, this.messagesApi.preferred(request)));
 	}
 
 	public Result editComment(Http.Request request) {
-		Form<CommentData> boundForm = form.bindFromRequest(request);
-		CommentData data = boundForm.get();
+		Form<CommentData> boundForm = commentsForm.bindFromRequest(request);
+		CommentData commentData = boundForm.get();
 
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		finder.update()
-			.set("comment", data.getComment())
+		commentsFinder.update()
+			.set("comment", commentData.getComment())
 			.set("updatedAt", nowDate)
 			.where()
-				.eq("id", data.getId())
+				.eq("id", commentData.getId())
 				.update();
 
 		return redirect("/").flashing("", "edited!");
