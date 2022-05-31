@@ -28,8 +28,8 @@
 			@form(routes.UserController.updateUserInfo) {
 				@CSRF.formField
 
-				@inputText(userInfoForm("name"))
-				@inputPassword(userInfoForm("password"))
+				@inputText(userInfoForm("name"), Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@inputPassword(userInfoForm("password"), Symbol("required")-> "required")
 				<button type="submit">update</button>
 			}
 		</div>

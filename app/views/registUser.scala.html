@@ -22,8 +22,8 @@
 		<div class="regist-form">
 			@form(routes.RegistUserController.registUser) {
 				@CSRF.formField
-				@inputText(registUserForm("name"))
-				@inputPassword(registUserForm("password"))
+				@inputText(registUserForm("name"), Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@inputPassword(registUserForm("password"), Symbol("required")-> "required")
 				<button type="submit">submit</button>
 			}
 		</div>

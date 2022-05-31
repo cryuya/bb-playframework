@@ -21,8 +21,8 @@
 		<div class="login-form">
 			@form(routes.LoginController.login) {
 				@CSRF.formField
-				@inputText(loginForm("name"))
-				@inputPassword(loginForm("password"))
+				@inputText(loginForm("name"), Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@inputPassword(loginForm("password"), Symbol("required")-> "required")
 				<button type="submit">login</button>
 			}
 		</div>
