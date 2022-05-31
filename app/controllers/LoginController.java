@@ -48,7 +48,7 @@ public class LoginController extends Controller {
 			if (searchedUser != null) {
 				return 
 					redirect("/")
-						.addingToSession(request, "id", String.valueOf(data.getId()))
+						.addingToSession(request, "id", String.valueOf(searchedUser.id))
 						.addingToSession(request, "name", data.getName())
 						.flashing("", "logged in");
 			} else {
