@@ -14,17 +14,20 @@ import javax.inject.Inject;
 
 import static play.libs.Scala.asScala;
 
+@Security.Authenticated(Secured.class)
 public class UserController extends Controller {
 	private Finder<Integer, Users> finder = new Finder<>(Users.class);
 	private Finder<Integer, Comments> commentsFinder = new Finder<>(Comments.class);
 	private MessagesApi messagesApi;
 	private Form<UserData> form;
+	private Form<CommentData> commentForm;
 	private List<Comments> comments = Lists.newArrayList();
 	private Users user;
 
 	@Inject
 	public UserController(FormFactory formFactory, MessagesApi messagesApi) {
 		this.form = formFactory.form(UserData.class);
+		this.commentForm = formFactory.form(CommentData.class);
 		this.messagesApi = messagesApi;
 	}
 
@@ -53,5 +56,13 @@ public class UserController extends Controller {
 		;
 
 		return redirect("/user").flashing("", "updated!");
+	}
+
+	public Result deleteComment(Http.Request request) {
+		Form<CommentData> boundForm = commentForm.bindFromRequest(request);
+		CommentData data = boundForm.get();
+
+		finder.deleteById(data.getId());
+		return redirect("/user").flashing("", "delete!");
 	}
 }
