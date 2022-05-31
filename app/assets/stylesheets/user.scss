@@ -1,0 +1,30 @@
+@import "utils/layout";
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+.user-info-form {
+	display: inline-block;
+	padding: 10px;
+	dl {
+		margin-top: 10px;
+		input, textarea {
+			border: 1px solid $black;
+			display: inline-block;
+			margin-top: 5px;
+			padding: 5px;
+		}
+		label {
+			font-size: 18px;
+		}
+	}
+	button {
+		background-color: $green;
+		border-radius: 10px;
+		color: $white;
+		display: inline-block;
+		margin-top: 20px;
+		padding: 10px;
+	}
+}

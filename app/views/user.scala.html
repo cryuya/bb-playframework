@@ -1,0 +1,40 @@
+@import play.mvc.Http.Request
+
+@(
+	comments: Seq[Comments],
+	userInfoForm: Form[UserData]
+)(implicit
+	request: Request,
+	messages: play.i18n.Messages
+)
+
+@main("User page") {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/user.css")">
+} {
+	<header class="header">
+		<p class="header__top">
+			<a href="/">Top</a>
+		</p>
+		<p class="header__logout">
+			<a href="/logout">log out</a>
+		</p>
+	</header>
+
+	<main>
+		<h1>User page</h1>
+
+		<div class="user-info-form">
+			@helper.form(routes.UserController.updateUserInfo) {
+				@helper.CSRF.formField
+
+				@helper.inputText(userInfoForm("name"))
+				@helper.inputPassword(userInfoForm("password"))
+				<button type="submit">update</button>
+			}
+		</div>
+
+		@for(c <- comments) {
+			<p>@c.comment</p>
+		}
+	</main>
+}
