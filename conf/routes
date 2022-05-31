@@ -9,6 +9,7 @@ GET /searchComments controllers.SearchController.searchCommentsPage(request: Req
 
 GET /user controllers.UserController.userPage(request: Request)
 POST /updateUserInfo controllers.UserController.updateUserInfo(request: Request)
+POST /deleteUserComment controllers.UserController.deleteComment(request: Request)
 
 GET /registUser controllers.RegistUserController.registUserPage(request: Request)
 POST /registUser controllers.RegistUserController.registUser(request: Request)
