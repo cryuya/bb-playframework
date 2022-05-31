@@ -24,7 +24,7 @@ CREATE TABLE comments (
 	updated_at TIMESTAMP NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY(user_id)
-    REFERENCES users(id)
+	REFERENCES users(id)
 );
 
 INSERT INTO comments VALUES 
