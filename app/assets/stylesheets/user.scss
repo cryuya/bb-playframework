@@ -28,3 +28,54 @@ h1 {
 		padding: 10px;
 	}
 }
+
+.comments {
+	margin-top: 30px;
+}
+.comment {
+	background-color: $grey;
+	margin-top: 20px;
+	padding: 10px;
+	&__title {
+		font-size: 18px;
+		font-weight: bold;
+	}
+	&__text {
+		border: 1px solid $black;
+		border-radius: 5px;
+		font-size: 18px;
+		padding: 10px;
+		margin: 15px 0;
+	}
+	&__text-delete {
+		align-items: center;
+		display: flex;
+		width: 100%;
+		p {
+			flex: 1;
+		}
+		form {
+			margin-left: 10px;
+			button {
+				border-radius: 5px;
+				color: $white;
+				padding: 10px;
+				background-color: $red;
+			} 
+		}
+	}
+	&__edit {
+		background-color: $green;
+		border-radius: 5px;
+		color: $white;
+		display: block;
+		margin-left: 10px;
+		padding: 10px;
+	}
+	&__name-updatedAt {
+		display: flex;
+		p:last-child {
+			margin-left: 10px;
+		}
+	}
+}
