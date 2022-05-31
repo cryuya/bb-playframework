@@ -28,11 +28,18 @@ public class HomeController extends Controller {
 		this.messagesApi = messagesApi;
 	}
 
-
 	public Result topPage(Http.Request request) {
 		this.comments = finder.all();
 
-		return ok(views.html.index.render(request.session().get("name").orElse("guest"), asScala(this.comments), this.form, this.form, request, this.messagesApi.preferred(request)));
+		return ok(
+			views.html.index.render(
+				request.session().get("name").orElse("guest"), 
+				request.session().get("id").orElse("id"),
+				asScala(this.comments), this.form, this.form, 
+				request, 
+				this.messagesApi.preferred(request)
+			)
+		);
 	}
 
 	public Result createComment(Http.Request request) {
