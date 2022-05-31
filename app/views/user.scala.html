@@ -1,4 +1,5 @@
 @import play.mvc.Http.Request
+@import helper._
 
 @(
 	comments: Seq[Comments],
@@ -24,11 +25,11 @@
 		<h1>User page</h1>
 
 		<div class="user-info-form">
-			@helper.form(routes.UserController.updateUserInfo) {
-				@helper.CSRF.formField
+			@form(routes.UserController.updateUserInfo) {
+				@CSRF.formField
 
-				@helper.inputText(userInfoForm("name"))
-				@helper.inputPassword(userInfoForm("password"))
+				@inputText(userInfoForm("name"))
+				@inputPassword(userInfoForm("password"))
 				<button type="submit">update</button>
 			}
 		</div>
@@ -46,8 +47,8 @@
 						<a href="/editComment/@comment.id">
 							<button type="submit" class="comment__edit">edit</button>
 						</a>
-						@helper.form(routes.UserController.deleteComment) {
-							@helper.CSRF.formField
+						@form(routes.UserController.deleteComment) {
+							@CSRF.formField
 							<button type="submit" name="id" value="@comment.id">delete</button>
 						}
 					</div>

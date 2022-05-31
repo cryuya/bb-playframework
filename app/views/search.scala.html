@@ -1,4 +1,5 @@
 @import play.mvc.Http.Request
+@import helper._
 
 @(
 	searchedComments: Seq[Comments],
@@ -30,22 +31,22 @@
 		</div>
 
 		<div class="searched-comments">
-			@for(c <- searchedComments) {
+			@for(searchedComment <- searchedComments) {
 				<div class="searched-comment">
-					<p class="searched-comment__title">title: <span name="searched_title">@c.title</span></p>
+					<p class="searched-comment__title">title: <span name="searched_title">@searchedComment.title</span></p>
 					<div class="searched-comment__text-delete">
-						<p class="searched-comment__text"><span name="searched_comment">@c.comment</span></p>
-						<a href="/editComment/@c.id">
+						<p class="searched-comment__text"><span name="searched_comment">@searchedComment.comment</span></p>
+						<a href="/editComment/@searchedComment.id">
 							<button type="submit" class="searched-comment__edit">edit</button>
 						</a>
-						@helper.form(routes.HomeController.deleteComment) {
-							@helper.CSRF.formField
-							<button type="submit" name="id" value="@c.id">delete</button>
+						@form(routes.HomeController.deleteComment) {
+							@CSRF.formField
+							<button type="submit" name="id" value="@searchedComment.id">delete</button>
 						}
 					</div>
 					<div class="searched-comment__name-updatedAt">
-						<p>by @c.name,</p>
-						<p>@c.updatedAt </p>
+						<p>by @searchedComment.name,</p>
+						<p>@searchedComment.updatedAt </p>
 					</div>
 				</div>
 			}

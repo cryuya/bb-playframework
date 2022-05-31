@@ -1,4 +1,5 @@
 @import play.mvc.Http.Request
+@import helper._
 
 @(
 	userName: String,
@@ -29,12 +30,12 @@
 		<h1>Bullentin Board</h1>
 
 		<div class="comment-form">
-			@helper.form(routes.HomeController.createComment) {
-				@helper.CSRF.formField
+			@form(routes.HomeController.createComment) {
+				@CSRF.formField
 
-				@helper.inputText(commentForm("name"), Symbol("size")-> 30, Symbol("maxlength")-> 20, Symbol("required")-> "required")
-				@helper.inputText(commentForm("title"), Symbol("size")-> 30, Symbol("maxlength")-> 30, Symbol("required")-> "required")
-				@helper.textarea(commentForm("comment"),  Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
+				@inputText(commentForm("name"), Symbol("size")-> 30, Symbol("maxlength")-> 20, Symbol("required")-> "required")
+				@inputText(commentForm("title"), Symbol("size")-> 30, Symbol("maxlength")-> 30, Symbol("required")-> "required")
+				@textarea(commentForm("comment"),  Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
 
 				<button type="submit">send comment</button>
 			}

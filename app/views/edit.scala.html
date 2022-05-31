@@ -1,4 +1,5 @@
 @import play.mvc.Http.Request
+@import helper._
 
 @(
 	comment: Comments,
@@ -24,11 +25,11 @@
 		<h1>Edit</h1>
 
 		<div class="edit-comment">
-			@helper.form(routes.EditController.editComment) {
+			@form(routes.EditController.editComment) {
 				@helper.CSRF.formField
 
 				<p id="original_comment">@comment.comment</p>
-				@helper.textarea(editCommentForm("comment"), Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
+				@textarea(editCommentForm("comment"), Symbol("rows")-> 8, Symbol("cols")->50, Symbol("maxlength") -> 255, Symbol("required")-> "required")
 				<button type="submit" name="id" value="@comment.id">change</button>
 			}
 		</div>

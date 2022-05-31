@@ -1,4 +1,5 @@
 @import play.mvc.Http.Request
+@import helper._
 
 @(
 	loginForm: Form[UserData]
@@ -18,10 +19,10 @@
 		}
 
 		<div class="login-form">
-			@helper.form(routes.LoginController.login) {
-				@helper.CSRF.formField
-				@helper.inputText(loginForm("name"))
-				@helper.inputPassword(loginForm("password"))
+			@form(routes.LoginController.login) {
+				@CSRF.formField
+				@inputText(loginForm("name"))
+				@inputPassword(loginForm("password"))
 				<button type="submit">login</button>
 			}
 		</div>
