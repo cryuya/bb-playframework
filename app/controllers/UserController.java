@@ -62,7 +62,7 @@ public class UserController extends Controller {
 		Form<CommentData> boundForm = commentForm.bindFromRequest(request);
 		CommentData data = boundForm.get();
 
-		finder.deleteById(data.getId());
+		commentsFinder.deleteById(data.getId());
 		return redirect("/user").flashing("", "delete!");
 	}
 }
