@@ -24,9 +24,6 @@
 		<p class="header__search">
 			<a href="/searchComments">search🔎</a>
 		</p>
-		<p class="header__logout">
-			<a href="/logout">log out</a>
-		</p>
 	</header>
 	<main>
 		<h1>Bullentin Board</h1>
@@ -48,23 +45,15 @@
 				<p>@value</p>
 			}
 
-			@for(c <- comments) {
+			@for(comment <- comments) {
 				<div class="comment">
-					<p class="comment__title">title: @c.title</p>
+					<p class="comment__title">title: @comment.title</p>
 					<div class="comment__text-delete">
-						<p class="comment__text">@c.comment</p>
-						<a href="/editComment/@c.id">
-							<button type="submit" class="comment__edit">edit</button>
-						</a>
-						@helper.form(routes.HomeController.deleteComment) {
-							@helper.CSRF.formField
-							<button type="submit" name="id" value="@c.id">delete</button>
-						}
+						<p class="comment__text">@comment.comment</p>
 					</div>
 					<div class="comment__name-updatedAt">
-						<p>by @c.name,</p>
-						<p>@c.updatedAt</p>
-						<p>@c.userId</p>
+						<p>by @comment.name,</p>
+						<p>@comment.updatedAt</p>
 					</div>
 				</div>
 			}
