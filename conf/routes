@@ -7,6 +7,9 @@ POST /editComment controllers.EditController.editComment(request: Request)
 
 GET /searchComments controllers.SearchController.searchCommentsPage(request: Request)
 
+GET /user controllers.UserController.userPage(request: Request)
+POST /updateUserInfo controllers.UserController.updateUserInfo(request: Request)
+
 GET /registUser controllers.RegistUserController.registUserPage(request: Request)
 POST /registUser controllers.RegistUserController.registUser(request: Request)
 
