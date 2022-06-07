@@ -28,7 +28,7 @@ CREATE TABLE comments (
 );
 
 INSERT INTO comments VALUES 
-	(DEFAULT, 1, 'user1', 'かめかめ', 'いるかいるか', CURRENT_TIME, CURRENT_TIME),
+	(DEFAULT, 1, 'user1', 'かめかめ', 'いるかいるかいるか', CURRENT_TIME, CURRENT_TIME),
 	(DEFAULT, 2, 'user2', 'かめかめかめ', 'いるか　かもめ　いるか', CURRENT_TIME, CURRENT_TIME),
 	(DEFAULT, 2, 'user2', 'たぬきぺんぎん', 'ねこいぬいぬいぬ', CURRENT_TIME, CURRENT_TIME),
 	(DEFAULT, 2, 'user2', 'ねこぺんぎんねこ', 'ねこねこねこねこ', CURRENT_TIME, CURRENT_TIME),

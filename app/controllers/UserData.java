@@ -1,10 +1,12 @@
 package controllers;
 
+import play.data.validation.Constraints;
 public class UserData {
 	private int id;
+	@Constraints.Required
 	private String name;
+	@Constraints.Required
 	private String password;
-
 	public void setId(int id) {
 		this.id = id;
 	}

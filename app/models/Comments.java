@@ -1,11 +1,10 @@
 package models;
 
-import play.data.validation.Constraints;
 import io.ebean.Model;
+import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 
 @Entity
 public class Comments extends Model {

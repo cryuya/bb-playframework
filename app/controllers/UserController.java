@@ -1,16 +1,19 @@
 package controllers;
 
-import models.Users;
+import com.google.common.collect.Lists;
+import io.ebean.Finder;
 import models.Comments;
-
-import play.mvc.*;
+import models.Users;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.MessagesApi;
-import io.ebean.Finder;
-import com.google.common.collect.Lists;
-import java.util.List;
+import play.mvc.Controller;
+import play.mvc.Http;
+import play.mvc.Result;
+import play.mvc.Security;
+
 import javax.inject.Inject;
+import java.util.List;
 
 import static play.libs.Scala.asScala;
 
@@ -42,7 +45,7 @@ public class UserController extends Controller {
 
 		return ok(views.html.user.render(asScala(this.comments), this.form, request, this.messagesApi.preferred(request)));
 	}
-
+	
 	public Result updateUserInfo(Http.Request request) {
 		Form<UserData> boundForm = form.bindFromRequest(request);
 		UserData data = boundForm.get();
