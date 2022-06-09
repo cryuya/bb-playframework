@@ -1,18 +1,15 @@
 package controllers;
 
+import io.ebean.Finder;
 import models.Users;
-
-import play.mvc.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.MessagesApi;
-import io.ebean.Finder;
-import com.google.common.collect.Lists;
-import java.util.List;
-import java.util.Optional;
-import javax.inject.Inject;
+import play.mvc.Controller;
+import play.mvc.Http;
+import play.mvc.Result;
 
-import static play.libs.Scala.asScala;
+import javax.inject.Inject;
 
 public class LoginController extends Controller {
 	private Finder<Integer, Users> finder = new Finder<>(Users.class);
@@ -31,31 +28,31 @@ public class LoginController extends Controller {
 	
 	public Result login(Http.Request request) {	
 		Form<UserData> boundForm = form.bindFromRequest(request);
-		UserData data = boundForm.get();
-
 		if (boundForm.hasErrors()) {
 			return badRequest(views.html.login.render(this.form, request, messagesApi.preferred(request)));
-		} else {
-			Users searchedUser = 
-				finder.query()
-					.where()
-						.and()
-							.eq("name", data.getName())
-							.eq("password", data.getPassword())
-					.findOne()
-				;
+		}
 
-			if (searchedUser != null) {
-				return 
-					redirect("/")
-						.addingToSession(request, "id", String.valueOf(searchedUser.id))
-						.addingToSession(request, "name", data.getName())
-						.flashing("", "logged in");
-			} else {
-				return 
-					redirect("/login")
-						.flashing("", "failure");
-			}
+		UserData data = boundForm.get();
+
+		Users searchedUser =
+			finder.query()
+				.where()
+					.and()
+						.eq("name", data.getName())
+						.eq("password", data.getPassword())
+				.findOne()
+			;
+
+		if (searchedUser != null) {
+			return
+				redirect("/")
+					.addingToSession(request, "id", String.valueOf(searchedUser.id))
+					.addingToSession(request, "name", data.getName())
+					.flashing("", "logged in");
+		} else {
+			return
+				redirect("/login")
+					.flashing("", "failure");
 		}
 	}
 

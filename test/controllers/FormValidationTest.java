@@ -15,14 +15,28 @@ import static play.mvc.Http.Status.BAD_REQUEST;
 import static play.test.Helpers.POST;
 import static play.test.Helpers.route;
 
-public class ModelTest extends WithApplication {
+public class FormValidationTest extends WithApplication {
 
     @Override
     protected Application provideApplication() {
         return new GuiceApplicationBuilder().build();
     }
+
     @Test
-    public void nameとpasswordが未入力の場合はバリデーションエラー() {
+    public void 会員登録時にnameとpasswordが未入力の場合はバリデーションエラー() {
+        Http.RequestBuilder request = Helpers.fakeRequest()
+                .method(POST)
+                .bodyForm(ImmutableMap.of("name", "", "password", ""))
+                .uri("/login");
+
+        request = CSRFTokenHelper.addCSRFToken(request);
+
+        Result result = route(app, request);
+        assertEquals(BAD_REQUEST, result.status());
+    }
+
+    @Test
+    public void ログイン時にnameとpasswordが未入力の場合はバリデーションエラー() {
         Http.RequestBuilder request = Helpers.fakeRequest()
                 .method(POST)
                 .bodyForm(ImmutableMap.of("name", "", "password", ""))
